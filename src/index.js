@@ -69,10 +69,10 @@ const Header = () => {
 
 const Menu = () => {
   return (
-    <>
+    <main className='menu'>
       <h2>Our Menu</h2>
       <Pizza />
-    </>
+    </main>
   );
 };
 
@@ -84,7 +84,9 @@ const Footer = () => {
   console.log(isOpen);
 
   return (
-    <footer>{new Date().toLocaleTimeString()} We're currently open!</footer>
+    <footer className='footer'>
+      {new Date().toLocaleTimeString()} We're currently open!
+    </footer>
   );
 };
 
