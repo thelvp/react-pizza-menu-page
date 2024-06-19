@@ -58,11 +58,9 @@ function App() {
 }
 
 const Header = () => {
-  const style = {};
-
   return (
     <header className='header'>
-      <h1 style={style}>Fast React Pizza Co.</h1>
+      <h1>Fast React Pizza Co.</h1>
     </header>
   );
 };
@@ -71,8 +69,37 @@ const Menu = () => {
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
-      <Pizza />
+      <Pizza
+        name='Pizza Spinaci'
+        ingredient='Tomato, mozarella, spinach, and ricotta cheese'
+        photoName='/pizzas/spinaci.jpg'
+        price={10}
+      />
+      <Pizza
+        name='Pizza Funghi'
+        ingredient='Tomato, mozzarella, mushrooms'
+        photoName='/pizzas/funghi.jpg'
+        price={12} // Passing a number or other non-string - use { }
+      />
     </main>
+  );
+};
+
+const Pizza = (props) => {
+  // console.log(props); -> object with ingredietn, name, photoName, price
+
+  return (
+    <div className='pizza'>
+      <img
+        src={props.photoName}
+        alt='tasty pizza'
+      />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredient}</p>
+        <span>${props.price}</span>
+      </div>
+    </div>
   );
 };
 
@@ -87,19 +114,6 @@ const Footer = () => {
     <footer className='footer'>
       {new Date().toLocaleTimeString()} We're currently open!
     </footer>
-  );
-};
-
-const Pizza = () => {
-  return (
-    <>
-      <img
-        src='/pizzas/spinaci.jpg'
-        alt='tasty spinach pizza'
-      ></img>
-      <h3>Pizza Spinaci</h3>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-    </>
   );
 };
 
