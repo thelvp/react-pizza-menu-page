@@ -92,6 +92,9 @@ const Menu = () => {
 };
 
 const Pizza = (props) => {
+  // return nothing, if a condition is true
+  if (props.pizzaObj.soldOut) return null;
+
   return (
     <li className='pizza'>
       <img
