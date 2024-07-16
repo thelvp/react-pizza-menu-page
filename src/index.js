@@ -73,17 +73,21 @@ const Menu = () => {
     <main className='menu'>
       <h2>Our Menu</h2>
       {numPizzas > 0 ? (
-        // 1. .map() over array to render each pizza in a pizza Component
-        // 2. pass entire pizza object to component via pizzaObj prop
-        // 3. use pizza object data in component by using props. pizzaObj.name etc.
-        <ul className='pizzas'>
-          {pizzas.map((pizza) => (
-            <Pizza
-              pizzaObj={pizza}
-              key={pizza.name}
-            />
-          ))}
-        </ul>
+        <>
+          {/* Use React.Fragment if key is required, e.g. li */}
+          <p>
+            Authentic Italian cuisine. {pizzas.length} creative dishes to choose
+            from. All from our stone oven, all organic, all delicious.
+          </p>
+          <ul className='pizzas'>
+            {pizzas.map((pizza) => (
+              <Pizza
+                pizzaObj={pizza}
+                key={pizza.name}
+              />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>We're still working on our menu. Please come back later.</p>
       )}
@@ -91,20 +95,17 @@ const Menu = () => {
   );
 };
 
-const Pizza = (props) => {
-  // return nothing, if a condition is true
-  if (props.pizzaObj.soldOut) return null;
-
+const Pizza = ({ pizzaObj }) => {
   return (
-    <li className='pizza'>
+    <li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
       <img
-        src={props.pizzaObj.photoName}
+        src={pizzaObj.photoName}
         alt='tasty pizza'
       />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>${props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? 'SOLD OUT' : `$${pizzaObj.price}`}</span>
       </div>
     </li>
   );
@@ -132,12 +133,12 @@ const Footer = () => {
   );
 };
 
-const Order = (props) => {
+const Order = ({ closeHour, openHour }) => {
   return (
     <div className='order'>
       <p>
-        We're open from {props.openHour}:00 until {props.closeHour}:00. Come
-        visit us or order online!
+        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order
+        online!
       </p>
       <button className='btn'>Order</button>
     </div>
