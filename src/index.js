@@ -69,15 +69,13 @@ const Menu = () => {
   const pizzas = pizzaData; // = pizza array
   const numPizzas = pizzas.length; // = how many pizzas
 
-  // 0. Conditional rendering - short circuiting - if numPizzas is 0, falsy so second item = which is the <ul></ul> - is not rendered. If num is > 0, menu gets rendered.
-  // 1. Map over pizza array
-  // 2. Put data of each pizza via .map in prop pizzaObj to pass to pizza component
-  // 3. In pizza component, let propsdata land in certain places
-
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
-      {numPizzas > 0 && (
+      {numPizzas > 0 ? (
+        // 1. .map() over array to render each pizza in a pizza Component
+        // 2. pass entire pizza object to component via pizzaObj prop
+        // 3. use pizza object data in component by using props. pizzaObj.name etc.
         <ul className='pizzas'>
           {pizzas.map((pizza) => (
             <Pizza
@@ -86,6 +84,8 @@ const Menu = () => {
             />
           ))}
         </ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later.</p>
       )}
     </main>
   );
@@ -115,12 +115,15 @@ const Footer = () => {
 
   return (
     <footer className='footer'>
-      {/* // conditional rendering - short circuiting*/}
-      {isOpen && (
+      {isOpen ? (
         <div className='order'>
           <p>We're open until {closeHour}:00. Come visit us or order online!</p>
           <button className='btn'>Order</button>
         </div>
+      ) : (
+        <p className='order'>
+          We're closed. We're happy to welcome you as per {openHour}:00.
+        </p>
       )}
     </footer>
   );
@@ -132,3 +135,39 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// =====================================
+// Conditional rendering - three options
+// =====================================
+
+// -------------------------------------
+// 1. Short circuiting with &&
+// -------------------------------------
+// {isOpen && (
+//     <p>We're open until {closeHour}:00. Come visit us!</p>
+// )}
+//
+// Explanation: only when first value (isOpen) is truthy, the second value gets returned (and thus the text is shown on the page).
+
+// -------------------------------------
+// 2. Ternary operator
+// -------------------------------------
+// {isOpen ? (
+//   <div className='order'>
+//     <p>We're open until {closeHour}:00. Come visit us!</p>
+//   </div>
+// ) : (
+//   <p className='order'>
+//     We're closed. We're happy to welcome you as per {openHour}:00.
+//   </p>
+// )}
+//
+// Explanation: ternary operator - if isOpen is true ? then ... : and else...
+
+// -------------------------------------
+// 3. If/else statement around return
+// -------------------------------------
+// if (!isOpen) return <p>closed</p>;
+// if (isOpen) return <p>open</p>;
+//
+// Explanation: the most regular expression, but you cannot use it in JSX so it should be outside of the return. This makes it a bit less good to use, since often you have a div around it etc, and then you have to do it twice for each return. s
