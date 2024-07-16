@@ -66,17 +66,27 @@ const Header = () => {
 };
 
 const Menu = () => {
+  const pizzas = pizzaData; // = pizza array
+  const numPizzas = pizzas.length; // = how many pizzas
+
+  // 0. Conditional rendering - short circuiting - if numPizzas is 0, falsy so second item = which is the <ul></ul> - is not rendered. If num is > 0, menu gets rendered.
+  // 1. Map over pizza array
+  // 2. Put data of each pizza via .map in prop pizzaObj to pass to pizza component
+  // 3. In pizza component, let propsdata land in certain places
+
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
-      <div className='pizzas'>
-        {pizzaData.map((pizza) => (
-          <Pizza
-            pizzaObj={pizza}
-            key={pizza.name}
-          />
-        ))}
-      </div>
+      {numPizzas > 0 && (
+        <ul className='pizzas'>
+          {pizzas.map((pizza) => (
+            <Pizza
+              pizzaObj={pizza}
+              key={pizza.name}
+            />
+          ))}
+        </ul>
+      )}
     </main>
   );
 };
@@ -102,11 +112,16 @@ const Footer = () => {
   const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
 
   return (
     <footer className='footer'>
-      {new Date().toLocaleTimeString()} We're currently open!
+      {/* // conditional rendering - short circuiting*/}
+      {isOpen && (
+        <div className='order'>
+          <p>We're open until {closeHour}:00. Come visit us or order online!</p>
+          <button className='btn'>Order</button>
+        </div>
+      )}
     </footer>
   );
 };
