@@ -1,3 +1,7 @@
+# What this app does / credits
+
+This app renders the menu page of an Italian pizza restaurant. Credits go to Jonas Schmedtmann. I made this following his course "The Ultimate React Course 2024: React, Next.js, Redux & More" at Udemy.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
