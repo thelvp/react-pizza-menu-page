@@ -69,37 +69,31 @@ const Menu = () => {
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
-      <Pizza
-        name='Pizza Spinaci'
-        ingredient='Tomato, mozarella, spinach, and ricotta cheese'
-        photoName='/pizzas/spinaci.jpg'
-        price={10}
-      />
-      <Pizza
-        name='Pizza Funghi'
-        ingredient='Tomato, mozzarella, mushrooms'
-        photoName='/pizzas/funghi.jpg'
-        price={12} // Passing a number or other non-string - use { }
-      />
+      <div className='pizzas'>
+        {pizzaData.map((pizza) => (
+          <Pizza
+            pizzaObj={pizza}
+            key={pizza.name}
+          />
+        ))}
+      </div>
     </main>
   );
 };
 
 const Pizza = (props) => {
-  // console.log(props); -> object with ingredietn, name, photoName, price
-
   return (
-    <div className='pizza'>
+    <li className='pizza'>
       <img
-        src={props.photoName}
+        src={props.pizzaObj.photoName}
         alt='tasty pizza'
       />
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredient}</p>
-        <span>${props.price}</span>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>${props.pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 };
 
